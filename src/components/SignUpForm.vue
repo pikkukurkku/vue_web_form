@@ -5,6 +5,7 @@
 
     <label>Password:</label>
     <input type="password" required v-model="password" />
+    <div v-if="passwordError" class="error"> {{ passwordError }}</div>
 
     <label>Role:</label>
     <select v-model="role">
@@ -19,8 +20,9 @@
     </div>
 
     <div class="terms">
-      <input type="checkbox" v-model="terms" required />
+      <input type="checkbox" v-model="terms" />
       <label>Accept terms and conditions</label>
+      <div v-if="checkbox" class="cberror"> {{ checkbox }}</div>
     </div>
 
     <div class="submit">
@@ -44,6 +46,8 @@ export default {
       terms: false,
       tempSkill: "",
       skills: [],
+      passwordError: '',
+      checkbox: ''
     };
   },
   methods: {
@@ -61,7 +65,17 @@ export default {
       })
     },
     handleSubmit() {
-      console.log('form submitted')
+      //validate password
+      this.passwordError = this.password.length > 5 ? '' : 'Password must be at least 6 characters long'
+      this.checkbox = this.terms ? '' : "Please accept the terms and conitions"
+
+      if(!this.passwordError && !this.checkbox) {
+        console.log('email: ', this.email)
+        console.log('password: ', this.password)
+        console.log('role; ', this.role)
+        console.log('skills: ', this.skills)
+        console.log('terms accepted: ', this.terms)
+      }
     }
   },
 };
@@ -124,5 +138,11 @@ button {
 }
 .submit {
   text-align: center;
+}
+.error, .cberror {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #ff0062;
+  margin-top: 10px
 }
 </style>
