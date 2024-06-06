@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="handleSubmit">
     <label>Email:</label>
     <input type="email" required v-model="email" />
 
@@ -21,6 +21,10 @@
     <div class="terms">
       <input type="checkbox" v-model="terms" required />
       <label>Accept terms and conditions</label>
+    </div>
+
+    <div class="submit">
+      <button>Create an Account</button>
     </div>
   </form>
 
@@ -56,6 +60,9 @@ export default {
         return skill !== item
       })
     },
+    handleSubmit() {
+      console.log('form submitted')
+    }
   },
 };
 </script>
@@ -106,5 +113,16 @@ input[type="checkbox"] {
     font-weight: bold;
     color: #777;
     cursor: pointer
+}
+button {
+  background: #0b6dff;
+  border: 0;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: white;
+  border-radius: 20px
+}
+.submit {
+  text-align: center;
 }
 </style>
